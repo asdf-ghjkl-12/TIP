@@ -12,7 +12,7 @@ import random
 import math
 import time
 
-class Encoder(nn.Module):
+class Encoder_rnn(nn.Module):
     def __init__(self, input_dim, emb_dim, hid_dim, n_layers, dropout):
         super().__init__()
         
@@ -43,7 +43,7 @@ class Encoder(nn.Module):
         
         return hidden
 
-class Decoder(nn.Module):
+class Decoder_rnn(nn.Module):
     def __init__(self, output_dim, emb_dim, hid_dim, n_layers, dropout):
         super().__init__()
         
@@ -123,6 +123,7 @@ class Seq2Seq(nn.Module):
         
         #last hidden state of the encoder is used as the initial hidden state of the decoder
         hidden = self.encoder(src)
+        z_t = hidden
         
         #first input to the decoder is the <sos> tokens
         input = trg[0,:]
@@ -146,4 +147,4 @@ class Seq2Seq(nn.Module):
             #if not, use predicted token
             input = trg[t] if teacher_force else top1
         
-        return outputs
+        return outputs, z_t
