@@ -5,12 +5,7 @@ import torch.optim as optim
 from torchtext.legacy.datasets import Multi30k
 from torchtext.legacy.data import Field, BucketIterator
 
-import spacy
-import numpy as np
-
 import random
-import math
-import time
 
 class Encoder_rnn(nn.Module):
     def __init__(self, input_dim, emb_dim, hid_dim, n_layers, dropout):
